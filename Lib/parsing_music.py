@@ -6,7 +6,6 @@ from urllib.parse import quote
 def get_artist_col(p_letter):
     # Define URL
     url = "https://my.mail.ru/music/artists-letters/"
-    #alphabet = 'абвгдеёжзийклмнопрстуфхцчшщэюя'
     alphabet = p_letter
     dict_ = {}
     dict_artist = {}

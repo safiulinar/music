@@ -1,4 +1,4 @@
-from parsing_music import get_artist_col
+from ..lib.parsing_music import get_artist_col
 
 dict_music = {}
 
