@@ -55,7 +55,7 @@ def get_artist_col(p_letter):
     return dict_
 
 ### Загружаем из коллекции данные в базу
-def load_in_db(p_dict)
+def load_in_db(p_dict):
     simple_dict = p_dict
 
     conn = sqlite3.connect('music.db')
