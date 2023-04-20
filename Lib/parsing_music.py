@@ -2,7 +2,9 @@ from bs4 import BeautifulSoup
 import requests
 import lxml
 from urllib.parse import quote
+import sqlite3
 
+### Получаем коллекцию артист --> албом --> песня по одной букве
 def get_artist_col(p_letter):
     # Define URL
     url = "https://my.mail.ru/music/artists-letters/"
@@ -51,3 +53,30 @@ def get_artist_col(p_letter):
         #Собираем итоговый словарь Артист - альбом - треки
         dict_[l] = dict_song
     return dict_
+
+### Загружаем из коллекции данные в базу
+def load_in_db(p_dict)
+    simple_dict = p_dict
+
+    conn = sqlite3.connect('music.db')
+    cur = conn.cursor()
+    cur_l = conn.cursor()
+
+    for l in simple_dict.keys():
+        cur.execute("select count(id)+1 from artist;")
+        val_art = (cur.fetchone()[0], l)
+        cur.execute("insert into artist values (?, ?);", val_art)
+        conn.commit()
+        for n in simple_dict[l].keys():
+            cur_l.execute("select count(id)+1 from album;")
+            cur.execute("select id from artist where name = ?", (l,))
+            val_alb = (cur_l.fetchone()[0], cur.fetchone()[0], n)
+            cur.execute("insert into album values (?, ?, ?);", val_alb)
+            conn.commit()
+            for m in range(len(simple_dict[l][n])):
+                cur_l.execute("select count(id)+1 from song;")
+                cur.execute("select id from album where name = ?", (n,))
+                val_song = (cur_l.fetchone()[0], cur.fetchone()[0], simple_dict[l][n][m])
+                cur.execute("insert into song values (?, ?, ?);", val_song)
+                conn.commit()
+    conn.close()
