@@ -11,6 +11,7 @@ def get_artist_col(p_letter):
     alphabet = p_letter
     dict_ = {}
     dict_artist = {}
+    qq = 0
 
     #Перебирам артистов по алфавиту
     for i in alphabet:
@@ -29,6 +30,8 @@ def get_artist_col(p_letter):
                 dict_[res[k].text] = res[k].get('href')
     #Перебираем альбомы
     for l in dict_.keys():
+        qq = qq + 1
+        print(round((qq/len(dict_))*100, 2))
         url_artist = 'https://my.mail.ru' + dict_.get(l) + '/albums'
         page_artist = requests.get(url_artist)
         soup_artist = BeautifulSoup(page_artist.text, "lxml")
