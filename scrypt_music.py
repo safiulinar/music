@@ -5,7 +5,7 @@ from parsing_music import load_in_db
 
 dict_music = {}
 
-dict_music = get_artist_col("й")
+dict_music = get_artist_col("м")
 
 l = load_in_db(dict_music)
 
